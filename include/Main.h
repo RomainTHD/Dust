@@ -7,6 +7,8 @@
 #ifndef DUST_MAIN_H
 #define DUST_MAIN_H
 
+#define X_SERVER true
+
 #include <iostream>
 
 #include "map/Map.h"
@@ -14,5 +16,7 @@
 #include "particles/SandParticle.h"
 
 #include "particles/ParticleType.h"
+
+#include "view/Window.h"
 
 #endif //DUST_MAIN_H
