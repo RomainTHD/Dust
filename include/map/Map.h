@@ -34,13 +34,13 @@ public:
      * Récupère la largeur
      * @return Largeur
      */
-    [[nodiscard]] size_t getWidth();
+    [[nodiscard]] size_t getWidth() const;
 
     /**
      * Récupère la hauteur
      * @return Hauteur
      */
-    [[nodiscard]] size_t getHeight();
+    [[nodiscard]] size_t getHeight() const;
 
 private:
     /**

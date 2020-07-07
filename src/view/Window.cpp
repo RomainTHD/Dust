@@ -7,6 +7,7 @@ Window::Window(const Map& m, std::pair<size_t, size_t> size, const std::string& 
     running(false),
     map(m) {
     renderWindow.create(sf::VideoMode(size.first, size.second), title);
+    renderWindow.setFramerateLimit(FRAMERATE);
 }
 
 void Window::run() {
@@ -40,6 +41,10 @@ void Window::processEvents() {
                 renderWindow.close();
                 break;
 
+            case sf::Event::Resized:
+                handleResize(event.size);
+                break;
+
             default:
                 break;
         }
@@ -53,55 +58,51 @@ void Window::update() {
 void Window::render() {
     renderWindow.clear(BACKGROUND_COLOR);
 
-    /*
-    float windowWidth = window.getSize().x;
-    float windowHeight = window.getSize().y;
+    const float windowWidth = renderWindow.getSize().x;
+    const float windowHeight = renderWindow.getSize().y;
 
-    float cellWidth = windowWidth / (float) map->getNbCols();
-    float cellHeight = windowHeight / (float) map->getNbRows();
+    const float cellWidth = windowWidth / (float) map.getWidth();
+    const float cellHeight = windowHeight / (float) map.getHeight();
 
     sf::RectangleShape shape(sf::Vector2f(cellWidth, cellHeight));
+    shape.setPosition(0, 0);
 
-    shape.setOutlineThickness(0);
+    shape.setOutlineThickness(OUTLINE_THICKNESS);
+    shape.setOutlineColor(BACKGROUND_COLOR);
 
-    for (auto iter = map->iterCell(); iter != map->iterEnd(); iter++) {
-        shape.setPosition(iter.getCol()*cellWidth, iter.getRow()*cellHeight);
-        shape.setFillColor(sf::Color::Green);
+    for (unsigned int row=0; row < map.getHeight(); row++) {
+        for (unsigned int col=0; col < map.getWidth(); col++) {
+            // std::cout << cellWidth << ' ' << windowWidth <<' '<< ((float) col) * cellWidth << '\n';
 
-        window.draw(shape);
-    }
+            // shape.setPosition(((float) col) * cellWidth, ((float) row) * cellHeight);
 
-    const float thickness = 5;
+            shape.setFillColor(sf::Color::Green);
 
-    sf::RectangleShape line(sf::Vector2f(cellWidth + thickness, thickness));
-    line.setFillColor(sf::Color::Red);
+            renderWindow.draw(shape);
 
-    for (auto iter = map->iterWallHoriz(); iter != map->iterEnd(); iter++) {
-        if (iter.getWall()->isFilled()) {
-            float x = cellWidth * iter.getCol() - thickness/2;
-            float y = cellHeight * ceilf(iter.getRow()) - thickness/2;
+            shape.move(cellWidth, 0);
 
-            line.setPosition(sf::Vector2f(x, y));
-            window.draw(line);
         }
+
+        shape.setPosition(0, shape.getPosition().y);
+        shape.move(0, cellHeight);
     }
-
-    line.setSize(sf::Vector2f(thickness, cellHeight + thickness));
-
-    for (auto iter = map->iterWallVert(); iter != map->iterEnd(); iter++) {
-        if (iter.getWall()->isFilled()) {
-            float x = cellWidth * ceilf(iter.getCol()) - thickness/2;
-            float y = cellHeight * iter.getRow() - thickness/2;
-
-            line.setPosition(sf::Vector2f(x, y));
-            window.draw(line);
-        }
-    }
-     */
 
     renderWindow.display();
 }
 
 void Window::handleInput(const sf::Keyboard::Key& key, bool pressed) {
 
+}
+
+void Window::handleResize(sf::Event::SizeEvent& size) {
+    const float cellWidth = (float) size.width / (float) map.getWidth();
+    const float cellHeight = (float) size.height / (float) map.getHeight();
+
+    if (cellWidth > 2*OUTLINE_THICKNESS + 1 && cellHeight > 2 * OUTLINE_THICKNESS + 1) {
+        // renderWindow.setSize(sf::Vector2u(size.width, size.height));
+    }
+    else {
+        // renderWindow.setSize(sf::Vector2u(1000, 1000));
+    }
 }

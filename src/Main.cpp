@@ -8,7 +8,7 @@ int main() {
         setenv("DISPLAY", "127.0.0.1:0", true);
     }
 
-    Map map(3, 5);
+    Map map(100, 100);
 
     Window window(map, std::pair<size_t, size_t>(800, 600), "Dust");
 

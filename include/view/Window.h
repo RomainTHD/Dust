@@ -6,10 +6,13 @@
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 #include "map/Map.h"
 
 #define BACKGROUND_COLOR sf::Color::Blue
+#define OUTLINE_THICKNESS 1
+#define FRAMERATE 60
 
 class Window {
 public:
@@ -57,6 +60,13 @@ private:
      * @param pressed Enfoncée ou relâchée
      */
     void handleInput(const sf::Keyboard::Key& key, bool pressed);
+
+    /**
+     * Gère le redimensionnement de la fenêtre
+     *
+     * @param size Event de resize
+     */
+    void handleResize(sf::Event::SizeEvent& size);
 
     /**
      * Fenêtre

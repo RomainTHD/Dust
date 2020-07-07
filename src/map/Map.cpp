@@ -7,10 +7,10 @@ Map::Map(size_t width, size_t height) :
     size(width, height)
     {}
 
-size_t Map::getWidth() {
+size_t Map::getWidth() const {
     return size.first;
 }
 
-size_t Map::getHeight() {
+size_t Map::getHeight() const {
     return size.second;
 }
