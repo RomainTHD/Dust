@@ -1,0 +1,127 @@
+\hypertarget{classObservable}{}\section{Observable Class Reference}
+\label{classObservable}\index{Observable@{Observable}}
+
+
+{\ttfamily \#include $<$Observable.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classObservable_af851f0a4c61f2acce7a270f774ad5cfb}{add\+Observer} (\hyperlink{classObserver}{Observer} $\ast$obs)
+\item 
+void \hyperlink{classObservable_abf78cf600c4ee7f53d3f304a45a99997}{delete\+Observer} (\hyperlink{classObserver}{Observer} $\ast$obs)
+\item 
+void \hyperlink{classObservable_a58d44b0ffda7a756d543f819028a65ed}{delete\+Observers} ()
+\item 
+void \hyperlink{classObservable_ad88b0ad8e623c5450ac3857daeb1c330}{notify\+Observers} ()
+\item 
+void \hyperlink{classObservable_a4d40c0f80343cd4fe27ab195e11e9d71}{notify\+Observers} (const std\+::string msg)
+\item 
+bool \hyperlink{classObservable_a47d67f961b4668f8cb69e6017d5534c1}{has\+Changed} () const
+\item 
+int \hyperlink{classObservable_a86a88f7a9d862e6dd192c76eb042cff1}{count\+Observers} () const
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classObservable_a7041841fb1de932dd6677ae273b3bb9a}{set\+Changed} ()
+\item 
+void \hyperlink{classObservable_a98b488f7ef648cf1da2c8bac7f0cce26}{clear\+Changed} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classObservable}{Observable} Classe \hyperlink{classObservable}{Observable} 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classObservable_af851f0a4c61f2acce7a270f774ad5cfb}\label{classObservable_af851f0a4c61f2acce7a270f774ad5cfb}} 
+\index{Observable@{Observable}!add\+Observer@{add\+Observer}}
+\index{add\+Observer@{add\+Observer}!Observable@{Observable}}
+\subsubsection{\texorpdfstring{add\+Observer()}{addObserver()}}
+{\footnotesize\ttfamily void Observable\+::add\+Observer (\begin{DoxyParamCaption}\item[{\hyperlink{classObserver}{Observer} $\ast$}]{obs }\end{DoxyParamCaption})}
+
+Ajoute un observer
+
+
+\begin{DoxyParams}{Parameters}
+{\em obs} & Pointeur vers l\textquotesingle{}observer \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classObservable_a98b488f7ef648cf1da2c8bac7f0cce26}\label{classObservable_a98b488f7ef648cf1da2c8bac7f0cce26}} 
+\index{Observable@{Observable}!clear\+Changed@{clear\+Changed}}
+\index{clear\+Changed@{clear\+Changed}!Observable@{Observable}}
+\subsubsection{\texorpdfstring{clear\+Changed()}{clearChanged()}}
+{\footnotesize\ttfamily void Observable\+::clear\+Changed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Marque comme inchangé \mbox{\Hypertarget{classObservable_a86a88f7a9d862e6dd192c76eb042cff1}\label{classObservable_a86a88f7a9d862e6dd192c76eb042cff1}} 
+\index{Observable@{Observable}!count\+Observers@{count\+Observers}}
+\index{count\+Observers@{count\+Observers}!Observable@{Observable}}
+\subsubsection{\texorpdfstring{count\+Observers()}{countObservers()}}
+{\footnotesize\ttfamily int Observable\+::count\+Observers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Compte les observers
+
+\begin{DoxyReturn}{Returns}
+Nombre d\textquotesingle{}observers 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classObservable_abf78cf600c4ee7f53d3f304a45a99997}\label{classObservable_abf78cf600c4ee7f53d3f304a45a99997}} 
+\index{Observable@{Observable}!delete\+Observer@{delete\+Observer}}
+\index{delete\+Observer@{delete\+Observer}!Observable@{Observable}}
+\subsubsection{\texorpdfstring{delete\+Observer()}{deleteObserver()}}
+{\footnotesize\ttfamily void Observable\+::delete\+Observer (\begin{DoxyParamCaption}\item[{\hyperlink{classObserver}{Observer} $\ast$}]{obs }\end{DoxyParamCaption})}
+
+Retire un observer
+
+
+\begin{DoxyParams}{Parameters}
+{\em obs} & Pointeur vers l\textquotesingle{}observer \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classObservable_a58d44b0ffda7a756d543f819028a65ed}\label{classObservable_a58d44b0ffda7a756d543f819028a65ed}} 
+\index{Observable@{Observable}!delete\+Observers@{delete\+Observers}}
+\index{delete\+Observers@{delete\+Observers}!Observable@{Observable}}
+\subsubsection{\texorpdfstring{delete\+Observers()}{deleteObservers()}}
+{\footnotesize\ttfamily void Observable\+::delete\+Observers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Retire tous les observers \mbox{\Hypertarget{classObservable_a47d67f961b4668f8cb69e6017d5534c1}\label{classObservable_a47d67f961b4668f8cb69e6017d5534c1}} 
+\index{Observable@{Observable}!has\+Changed@{has\+Changed}}
+\index{has\+Changed@{has\+Changed}!Observable@{Observable}}
+\subsubsection{\texorpdfstring{has\+Changed()}{hasChanged()}}
+{\footnotesize\ttfamily bool Observable\+::has\+Changed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Si l\textquotesingle{}observable a changé ou non
+
+\begin{DoxyReturn}{Returns}
+Changé 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classObservable_ad88b0ad8e623c5450ac3857daeb1c330}\label{classObservable_ad88b0ad8e623c5450ac3857daeb1c330}} 
+\index{Observable@{Observable}!notify\+Observers@{notify\+Observers}}
+\index{notify\+Observers@{notify\+Observers}!Observable@{Observable}}
+\subsubsection{\texorpdfstring{notify\+Observers()}{notifyObservers()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Observable\+::notify\+Observers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Notifie les observers \mbox{\Hypertarget{classObservable_a4d40c0f80343cd4fe27ab195e11e9d71}\label{classObservable_a4d40c0f80343cd4fe27ab195e11e9d71}} 
+\index{Observable@{Observable}!notify\+Observers@{notify\+Observers}}
+\index{notify\+Observers@{notify\+Observers}!Observable@{Observable}}
+\subsubsection{\texorpdfstring{notify\+Observers()}{notifyObservers()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Observable\+::notify\+Observers (\begin{DoxyParamCaption}\item[{const std\+::string}]{msg }\end{DoxyParamCaption})}
+
+Notifie les observers avec un message
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & Message \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classObservable_a7041841fb1de932dd6677ae273b3bb9a}\label{classObservable_a7041841fb1de932dd6677ae273b3bb9a}} 
+\index{Observable@{Observable}!set\+Changed@{set\+Changed}}
+\index{set\+Changed@{set\+Changed}!Observable@{Observable}}
+\subsubsection{\texorpdfstring{set\+Changed()}{setChanged()}}
+{\footnotesize\ttfamily void Observable\+::set\+Changed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Marque comme changé 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/util/Observable.\+h\item 
+src/util/Observable.\+cpp\end{DoxyCompactItemize}
