@@ -9,6 +9,7 @@
 
 #include <utility>
 #include <cstddef>
+#include <vector>
 
 #include "Map.fwd.h"
 #include "particles/Particle.fwd.h"
@@ -42,11 +43,31 @@ public:
      */
     [[nodiscard]] size_t getHeight() const;
 
+    /**
+     * récupère une particule
+     *
+     * @param pos Position [row, col]
+     * @return Particule [row, col]
+     */
+    [[nodiscard]] Particle* getParticle(std::pair<size_t, size_t> pos) const;
+
+    /**
+     * Crée une particule
+     *
+     * @param particle Particule
+     * @param pos Position
+     */
+    void setParticle(Particle* particle, std::pair<size_t, size_t> pos);
 private:
     /**
      * Taille de la map
      */
     std::pair<size_t, size_t> size;
+
+    /**
+     * Liste des particules
+     */
+    std::vector<std::vector<Particle*>> particles;
 };
 
 
