@@ -1,0 +1,100 @@
+\hypertarget{classParticle}{}\section{Particle Class Reference}
+\label{classParticle}\index{Particle@{Particle}}
+
+
+{\ttfamily \#include $<$Particle.\+h$>$}
+
+
+
+Inheritance diagram for Particle\+:
+% FIG 0
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classParticle_a40f4c7e248029d72e7714b7802d5e5e1}{Particle} ()
+\item 
+\hyperlink{classParticle_a11b58fc190875711f8925e8a882e659a}{Particle} (\hyperlink{classParticleType}{Particle\+Type} type)
+\item 
+\hyperlink{classParticle_a5e670f0f1813d67aaf678a28c1c6b173}{$\sim$\+Particle} ()=default
+\item 
+bool \hyperlink{classParticle_a8975b7528d54193e98fbd26e9bd2de60}{has\+Changed} ()
+\item 
+virtual void \hyperlink{classParticle_a9bb57d8a1b761970315ca01c52c717b1}{update} ()=0
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classParticle_a428eb7f949eb5dfccfba9fcb7fbba32f}{set\+Changed} ()
+\item 
+void \hyperlink{classParticle_a8ef46b2bdb02c5aad640748b7b01b040}{clear\+Changed} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Particule Particule 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classParticle_a40f4c7e248029d72e7714b7802d5e5e1}\label{classParticle_a40f4c7e248029d72e7714b7802d5e5e1}} 
+\index{Particle@{Particle}!Particle@{Particle}}
+\index{Particle@{Particle}!Particle@{Particle}}
+\subsubsection{\texorpdfstring{Particle()}{Particle()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Particle\+::\+Particle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Constructeur~\newline
+ Type = N\+O\+T\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+ED \mbox{\Hypertarget{classParticle_a11b58fc190875711f8925e8a882e659a}\label{classParticle_a11b58fc190875711f8925e8a882e659a}} 
+\index{Particle@{Particle}!Particle@{Particle}}
+\index{Particle@{Particle}!Particle@{Particle}}
+\subsubsection{\texorpdfstring{Particle()}{Particle()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Particle\+::\+Particle (\begin{DoxyParamCaption}\item[{\hyperlink{classParticleType}{Particle\+Type}}]{type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Constructeur 
+\begin{DoxyParams}{Parameters}
+{\em type} & Type de particule \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classParticle_a5e670f0f1813d67aaf678a28c1c6b173}\label{classParticle_a5e670f0f1813d67aaf678a28c1c6b173}} 
+\index{Particle@{Particle}!````~Particle@{$\sim$\+Particle}}
+\index{````~Particle@{$\sim$\+Particle}!Particle@{Particle}}
+\subsubsection{\texorpdfstring{$\sim$\+Particle()}{~Particle()}}
+{\footnotesize\ttfamily Particle\+::$\sim$\+Particle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+Destructeur 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classParticle_a8ef46b2bdb02c5aad640748b7b01b040}\label{classParticle_a8ef46b2bdb02c5aad640748b7b01b040}} 
+\index{Particle@{Particle}!clear\+Changed@{clear\+Changed}}
+\index{clear\+Changed@{clear\+Changed}!Particle@{Particle}}
+\subsubsection{\texorpdfstring{clear\+Changed()}{clearChanged()}}
+{\footnotesize\ttfamily void Particle\+::clear\+Changed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Marque la particule comme non-\/modifiée \mbox{\Hypertarget{classParticle_a8975b7528d54193e98fbd26e9bd2de60}\label{classParticle_a8975b7528d54193e98fbd26e9bd2de60}} 
+\index{Particle@{Particle}!has\+Changed@{has\+Changed}}
+\index{has\+Changed@{has\+Changed}!Particle@{Particle}}
+\subsubsection{\texorpdfstring{has\+Changed()}{hasChanged()}}
+{\footnotesize\ttfamily bool Particle\+::has\+Changed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Si la particule a changé ou non pendant son update \begin{DoxyReturn}{Returns}
+Changée ou non 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classParticle_a428eb7f949eb5dfccfba9fcb7fbba32f}\label{classParticle_a428eb7f949eb5dfccfba9fcb7fbba32f}} 
+\index{Particle@{Particle}!set\+Changed@{set\+Changed}}
+\index{set\+Changed@{set\+Changed}!Particle@{Particle}}
+\subsubsection{\texorpdfstring{set\+Changed()}{setChanged()}}
+{\footnotesize\ttfamily void Particle\+::set\+Changed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Marque la particule comme modifiée \mbox{\Hypertarget{classParticle_a9bb57d8a1b761970315ca01c52c717b1}\label{classParticle_a9bb57d8a1b761970315ca01c52c717b1}} 
+\index{Particle@{Particle}!update@{update}}
+\index{update@{update}!Particle@{Particle}}
+\subsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily virtual void Particle\+::update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Méthode à exécuter lors de l\textquotesingle{}update 
+
+Implemented in \hyperlink{classSandParticle_a5efef5e3f7995f30bdde7264401f03d2}{Sand\+Particle}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/particles/Particle.\+h\item 
+src/particles/Particle.\+cpp\end{DoxyCompactItemize}
