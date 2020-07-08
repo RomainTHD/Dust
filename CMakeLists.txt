@@ -42,8 +42,10 @@ set(SOURCE_FILES
         src/util/Observable.cpp
         src/util/Observer.cpp
 
-        src/Main.cpp
-        src/view/Window.cpp)
+        src/view/Window.cpp
+        src/view/Color.cpp
+
+        src/Main.cpp)
 
 set(HEADER_FILES
         include/map/Map.fwd.h
@@ -59,8 +61,10 @@ set(HEADER_FILES
         include/util/Observer.fwd.h
         include/util/Observer.h
 
-        include/Main.h
-        include/view/Window.h)
+        include/view/Window.h
+        include/view/Color.h
+
+        include/Main.h)
 
 set(EXECUTABLE_NAME "Dust")
 

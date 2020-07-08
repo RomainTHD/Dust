@@ -12,11 +12,11 @@
 /**
  * Particule de sable
  */
-class SandParticle : Particle {
+class SandParticle : public Particle {
 public:
     SandParticle();
 
-    void update() override {};
+    void update() override;
 };
 
 #endif //DUST_SANDPARTICLE_H

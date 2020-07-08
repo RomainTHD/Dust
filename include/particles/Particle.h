@@ -10,6 +10,7 @@
 #include "Particle.fwd.h"
 #include "map/Map.fwd.h"
 #include "ParticleType.h"
+#include "view/Color.h"
 
 /**
  * Particule
@@ -17,16 +18,11 @@
 class Particle {
 public:
     /**
-     * Constructeur<br>
-     * Type = NOT_INITIALIZED
-     */
-    Particle();
-
-    /**
      * Constructeur
      * @param type Type de particule
+     * @param color Couleur de la particule
      */
-    explicit Particle(ParticleType type);
+    Particle(ParticleType type, Color color);
 
     /**
      * Destructeur
@@ -38,6 +34,12 @@ public:
      * @return Changée ou non
      */
     [[nodiscard]] bool hasChanged();
+
+    /**
+     * Getter de la couleur
+     * @return Couleur
+     */
+    [[nodiscard]] Color getColor();
 
     /**
      * Méthode à exécuter lors de l'update
@@ -55,6 +57,10 @@ protected:
      */
     void clearChanged();
 
+    /**
+     * Couleur de la particule
+     */
+    Color color;
 private:
     /**
      * Particule modifiée ou non

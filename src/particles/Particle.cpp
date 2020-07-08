@@ -3,17 +3,18 @@
 
 #include "particles/Particle.h"
 
-Particle::Particle() :
-        Particle(ParticleType::NOT_INITIALIZED)
-{}
-
-Particle::Particle(ParticleType t) :
+Particle::Particle(ParticleType t, Color color) :
     stateChanged(true),
+    color(color),
     type(t)
     {}
 
 bool Particle::hasChanged() {
     return stateChanged;
+}
+
+Color Particle::getColor() {
+    return color;
 }
 
 void Particle::setChanged() {

@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Created by Romain on 06/07/2020.
 
+#include <view/Color.h>
 #include "view/Window.h"
 
 Window::Window(const Map& m, std::pair<size_t, size_t> size, const std::string& title) :
@@ -82,7 +83,7 @@ void Window::render() {
             static_cast<float>(map.getWidth()) * cellSize
         );
 
-    // const sf::Vector2i mousePos = sf::Mouse::getPosition(renderWindow);
+    const sf::Vector2i mousePos = sf::Mouse::getPosition(renderWindow) - sf::Vector2i(offset / 2.0f);
 
     for (unsigned int row=0; row < map.getHeight(); row++) {
         for (unsigned int col=0; col < map.getWidth(); col++) {
@@ -93,10 +94,19 @@ void Window::render() {
 
             shape.setPosition(shapePos + offset / 2.0f);
 
-            shape.setFillColor(sf::Color::Red);
+            Particle* particle = map.getParticle(std::pair<size_t, size_t>(row, col));
+
+            sf::Color color = particle == nullptr ? BACKGROUND_COLOR : particle->getColor().toSFMLColor();
+
+            shape.setFillColor(color);
 
             renderWindow.draw(shape);
 
+            if (mousePos.x >= shapePos.x && mousePos.x < shapePos.x + cellSize
+                && mousePos.y >= shapePos.y && mousePos.y < shapePos.y + cellSize) {
+                shape.setFillColor(sf::Color(255,255,0, 63));
+                renderWindow.draw(shape);
+            }
         }
     }
 

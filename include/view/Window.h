@@ -9,12 +9,16 @@
 #include <iostream>
 
 #include "map/Map.h"
+#include "particles/Particle.h"
 
 #define BACKGROUND_COLOR sf::Color::Black
 #define OUTLINE_THICKNESS 1
 #define FRAMERATE 60
 #define ENABLE_VSYNC true
 
+/**
+ * Gestion de la fenêtre
+ */
 class Window {
 public:
     /**
