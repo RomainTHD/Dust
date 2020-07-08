@@ -10,9 +10,10 @@
 
 #include "map/Map.h"
 
-#define BACKGROUND_COLOR sf::Color::Blue
+#define BACKGROUND_COLOR sf::Color::Black
 #define OUTLINE_THICKNESS 1
 #define FRAMERATE 60
+#define ENABLE_VSYNC true
 
 class Window {
 public:
@@ -54,12 +55,25 @@ private:
     void render();
 
     /**
+     * Quitte
+     */
+    void exit();
+
+    /**
      * Gère les entrées clavier
      *
      * @param key Touche
-     * @param pressed Enfoncée ou relâchée
+     * @param pressed Bouton enfoncé ou relâché
      */
-    void handleInput(const sf::Keyboard::Key& key, bool pressed);
+    void handleInput(const sf::Event::KeyEvent& key, bool pressed);
+
+    /**
+     * Gère les appuis souris
+     *
+     * @param mouse Souris
+     * @param pressed Bouton enfoncé ou relâché
+     */
+    void handleMouse(const sf::Event::MouseButtonEvent& mouse, bool pressed);
 
     /**
      * Gère le redimensionnement de la fenêtre
@@ -81,7 +95,7 @@ private:
     /**
      * Lancé ou non
      */
-    bool running;
+    inline static bool running = false;
 };
 
 #endif //DUST_WINDOW_H
