@@ -33,13 +33,13 @@ public:
      * Si la particule a changé ou non pendant son update
      * @return Changée ou non
      */
-    [[nodiscard]] bool hasChanged();
+    [[nodiscard]] bool hasChanged() const;
 
     /**
      * Getter de la couleur
      * @return Couleur
      */
-    [[nodiscard]] Color getColor();
+    [[nodiscard]] Color& getColor();
 
     /**
      * Méthode à exécuter lors de l'update

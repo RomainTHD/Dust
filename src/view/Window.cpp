@@ -5,7 +5,8 @@
 #include "view/Window.h"
 
 Window::Window(const Map& m, std::pair<size_t, size_t> size, const std::string& title) :
-    map(m) {
+    map(m),
+    frameCount(0) {
     renderWindow.create(sf::VideoMode(size.first, size.second), title);
     renderWindow.setFramerateLimit(FRAMERATE);
     renderWindow.setVerticalSyncEnabled(ENABLE_VSYNC);
@@ -20,10 +21,18 @@ void Window::run() {
 
     running = true;
 
+    const int frameTarget = std::max(FRAMERATE / UPDATES_PER_SECOND, 1);
+
     while (renderWindow.isOpen()) {
         processEvents();
-        update();
+
+        if (frameCount % frameTarget == 0) {
+            update();
+        }
+
         render();
+
+        frameCount++;
     }
 }
 
@@ -57,11 +66,23 @@ void Window::processEvents() {
 }
 
 void Window::update() {
+    for (unsigned int row=0; row < map.getHeight(); row++) {
+        for (unsigned int col = 0; col < map.getWidth(); col++) {
+            Particle* particle = map.getParticle(std::pair<size_t, size_t>(row, col));
 
+            if (particle != nullptr) {
+                particle->update();
+
+                if (particle->hasChanged()) {
+
+                }
+            }
+        }
+    }
 }
 
 void Window::render() {
-    renderWindow.clear(BACKGROUND_COLOR);
+    renderWindow.clear(Color(BACKGROUND_COLOR).toSFMLColor());
 
     const sf::Vector2f windowSize(
             static_cast<float>(renderWindow.getSize().x),
@@ -76,7 +97,7 @@ void Window::render() {
     sf::RectangleShape shape(sf::Vector2f(cellSize, cellSize));
 
     shape.setOutlineThickness(OUTLINE_THICKNESS);
-    shape.setOutlineColor(BACKGROUND_COLOR);
+    shape.setOutlineColor(Color(BACKGROUND_COLOR).toSFMLColor());
 
     const sf::Vector2f offset = windowSize - sf::Vector2f(
             static_cast<float>(map.getHeight()) * cellSize,
@@ -96,9 +117,9 @@ void Window::render() {
 
             Particle* particle = map.getParticle(std::pair<size_t, size_t>(row, col));
 
-            sf::Color color = particle == nullptr ? BACKGROUND_COLOR : particle->getColor().toSFMLColor();
+            const Color& color = (particle == nullptr) ? Color(BACKGROUND_COLOR) : particle->getColor();
 
-            shape.setFillColor(color);
+            shape.setFillColor(color.toSFMLColor());
 
             renderWindow.draw(shape);
 

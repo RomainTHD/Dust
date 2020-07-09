@@ -4,16 +4,16 @@
 #include "particles/Particle.h"
 
 Particle::Particle(ParticleType t, Color color) :
-    stateChanged(true),
     color(color),
+    stateChanged(true),
     type(t)
     {}
 
-bool Particle::hasChanged() {
+bool Particle::hasChanged() const {
     return stateChanged;
 }
 
-Color Particle::getColor() {
+Color& Particle::getColor() {
     return color;
 }
 
