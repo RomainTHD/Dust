@@ -61,9 +61,10 @@ set(HEADER_FILES
         include/util/Observer.fwd.h
         include/util/Observer.h
 
-        include/view/Window.h
         include/view/Color.h
+        include/view/Window.h
 
+        include/Config.h
         include/Main.h)
 
 set(EXECUTABLE_NAME "Dust")

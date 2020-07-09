@@ -1,4 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
+/**
+ * Gestion de la fenêtre
+ */
 // Created by Romain on 06/07/2020.
 
 #ifndef DUST_WINDOW_H
@@ -10,11 +13,7 @@
 
 #include "map/Map.h"
 #include "particles/Particle.h"
-
-#define BACKGROUND_COLOR sf::Color::Black
-#define OUTLINE_THICKNESS 1
-#define FRAMERATE 60
-#define ENABLE_VSYNC true
+#include "Config.h"
 
 /**
  * Gestion de la fenêtre
@@ -100,6 +99,8 @@ private:
      * Lancé ou non
      */
     inline static bool running = false;
+
+    uintmax_t frameCount;
 };
 
 #endif //DUST_WINDOW_H
