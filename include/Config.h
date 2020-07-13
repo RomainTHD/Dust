@@ -11,3 +11,5 @@
 #define ENABLE_VSYNC true
 
 #define UPDATES_PER_SECOND 1
+
+#define X_SERVER true

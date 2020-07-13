@@ -8,9 +8,9 @@ int main() {
         setenv("DISPLAY", "127.0.0.1:0", true);
     }
 
-    Map map(10, 10);
+    Map map(Size(10, 10));
 
-    map.setParticle(new SandParticle(), std::pair<size_t, size_t>(1, 5));
+    map.setParticle(MapElem(new SandParticle()), Position(1, 5));
 
     Window window(map, std::pair<size_t, size_t>(800, 600), "Dust");
 

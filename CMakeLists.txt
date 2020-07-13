@@ -60,6 +60,7 @@ set(HEADER_FILES
         include/util/Observable.h
         include/util/Observer.fwd.h
         include/util/Observer.h
+        include/util/Types.h
 
         include/view/Color.h
         include/view/Window.h

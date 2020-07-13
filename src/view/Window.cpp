@@ -4,7 +4,7 @@
 #include <view/Color.h>
 #include "view/Window.h"
 
-Window::Window(const Map& m, std::pair<size_t, size_t> size, const std::string& title) :
+Window::Window(const Map& m, Position size, const std::string& title) :
     map(m),
     frameCount(0) {
     renderWindow.create(sf::VideoMode(size.first, size.second), title);
@@ -68,9 +68,11 @@ void Window::processEvents() {
 void Window::update() {
     for (unsigned int row=0; row < map.getHeight(); row++) {
         for (unsigned int col = 0; col < map.getWidth(); col++) {
-            Particle* particle = map.getParticle(std::pair<size_t, size_t>(row, col));
+            const Position pos(row, col);
 
-            if (particle != nullptr) {
+            if (!map.isEmpty(pos)) {
+                MapElem particle = map.getParticle(pos);
+
                 particle->update();
 
                 if (particle->hasChanged()) {
@@ -115,7 +117,7 @@ void Window::render() {
 
             shape.setPosition(shapePos + offset / 2.0f);
 
-            Particle* particle = map.getParticle(std::pair<size_t, size_t>(row, col));
+            MapElem particle = map.getParticle(Position(row, col));
 
             const Color& color = (particle == nullptr) ? Color(BACKGROUND_COLOR) : particle->getColor();
 

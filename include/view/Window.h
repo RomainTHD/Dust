@@ -11,6 +11,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+#include "util/Types.h"
 #include "map/Map.h"
 #include "particles/Particle.h"
 #include "Config.h"
@@ -27,7 +28,7 @@ public:
      * @param size Taille initiale
      * @param title Titre
      */
-    Window(const Map& map, std::pair<size_t, size_t> size, const std::string& title);
+    Window(const Map& map, Position size, const std::string& title);
 
     /**
      * Destructeur

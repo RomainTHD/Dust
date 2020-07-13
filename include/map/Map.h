@@ -7,41 +7,66 @@
 #ifndef DUST_MAP_H
 #define DUST_MAP_H
 
-#include <utility>
 #include <cstddef>
 #include <vector>
+#include <memory>
 
+#include "util/Types.h"
 #include "Map.fwd.h"
-#include "particles/Particle.fwd.h"
+#include "particles/Particle.h"
+
+/**
+ * Élément de la map
+ */
+typedef std::shared_ptr<Particle> MapElem;
 
 /**
  * Map
  */
 class Map {
+    /**
+     * Colonne de la map
+     */
+    typedef std::unique_ptr<MapElem[]> MapCol;
+
 public:
     /**
      * Constructeur
      * @param width Largeur
      * @param height Hauteur
      */
-    Map(size_t width, size_t height);
+    Map(Size size);
 
     /**
      * Destructeur
      */
-    ~Map() = default;
+    ~Map();
 
     /**
      * Récupère la largeur
      * @return Largeur
+     * @deprecated
      */
     [[nodiscard]] size_t getWidth() const;
 
     /**
+     * Récupère la largeur (nombre de colonnes)
+     * @return Largeur
+     */
+    [[nodiscard]] size_t getNbCols() const;
+
+    /**
      * Récupère la hauteur
      * @return Hauteur
+     * @deprecated
      */
     [[nodiscard]] size_t getHeight() const;
+
+    /**
+     * Récupère la hauteur (nombre de lignes)
+     * @return Hauteur
+     */
+    [[nodiscard]] size_t getNbRows() const;
 
     /**
      * récupère une particule
@@ -49,7 +74,7 @@ public:
      * @param pos Position [row, col]
      * @return Particule [row, col]
      */
-    [[nodiscard]] Particle* getParticle(std::pair<size_t, size_t> pos) const;
+    [[nodiscard]] MapElem getParticle(Position pos) const;
 
     /**
      * Crée une particule
@@ -57,18 +82,20 @@ public:
      * @param particle Particule
      * @param pos Position
      */
-    void setParticle(Particle* particle, std::pair<size_t, size_t> pos);
+    void setParticle(MapElem particle, Position pos);
+
+    [[nodiscard]] bool isEmpty(Position pos) const;
 private:
     /**
      * Taille de la map
      */
-    std::pair<size_t, size_t> size;
+    Position size;
 
     /**
-     * Liste des particules
+     * Tableau 2D de pointeurs de particules
      */
-    std::vector<std::vector<Particle*>> particles;
+    std::unique_ptr<MapCol[]> particles;
 };
 
-
 #endif //DUST_MAP_H
+

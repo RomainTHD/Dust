@@ -16,6 +16,8 @@
  * Particule
  */
 class Particle {
+    friend class Map;
+
 public:
     /**
      * Constructeur
@@ -27,7 +29,7 @@ public:
     /**
      * Destructeur
      */
-    ~Particle() = default;
+    virtual ~Particle() = default;
 
     /**
      * Si la particule a changé ou non pendant son update

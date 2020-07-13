@@ -3,35 +3,50 @@
 
 #include "map/Map.h"
 
-Map::Map(size_t width, size_t height) :
-    size(width, height)
-    {
-        particles.reserve(height);
+#include <utility>
 
-        for (unsigned int row=0; row < height; row++) {
-            std::vector<Particle*> particlesRow;
-            particlesRow.reserve(width);
+Map::Map(Size size) :
+    size(size.first, size.second)
+{
+    particles = std::unique_ptr<MapCol[]>(new MapCol[getNbRows()]);
 
-            for (unsigned int col=0; col < width; col++) {
-                particlesRow.push_back(nullptr);
-            }
+    for (size_t row=0; row<getNbRows(); row++) {
+        MapCol mapCol = MapCol(new MapElem[getNbCols()]);
 
-            particles.push_back(particlesRow);
+        for (size_t col=0; col<getNbCols(); col++) {
+            mapCol[col] = nullptr;
         }
+
+        particles[row] = std::move(mapCol);
     }
+}
+
+Map::~Map() = default;
 
 size_t Map::getWidth() const {
+    return Map::getNbCols();
+}
+
+size_t Map::getNbCols() const {
     return size.first;
 }
 
 size_t Map::getHeight() const {
+    return Map::getNbRows();
+}
+
+size_t Map::getNbRows() const {
     return size.second;
 }
 
-Particle *Map::getParticle(std::pair<size_t, size_t> pos) const {
-    return particles.at(pos.first).at(pos.second);
+MapElem Map::getParticle(Position pos) const {
+    return particles[pos.first][pos.second];
 }
 
-void Map::setParticle(Particle *particle, std::pair<size_t, size_t> pos) {
-    particles.at(pos.first).at(pos.second) = particle;
+void Map::setParticle(MapElem particle, Position pos) {
+    particles[pos.first][pos.second] = std::move(particle);
+}
+
+bool Map::isEmpty(Position pos) const {
+    return particles[pos.first][pos.second] == nullptr;
 }
