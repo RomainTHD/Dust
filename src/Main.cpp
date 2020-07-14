@@ -12,7 +12,7 @@ int main() {
 
     map.setParticle(MapElem(new SandParticle()), Position(1, 5));
 
-    Window window(map, std::pair<size_t, size_t>(800, 600), "Dust");
+    Window window(map, Size(800, 600), "Dust");
 
     bool graceful = true;
 

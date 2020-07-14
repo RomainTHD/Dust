@@ -10,7 +10,7 @@
 #include <utility>
 #include <cstddef>
 
-typedef std::pair<size_t, size_t> Position;
+typedef std::pair<long, long> Position;
 typedef std::pair<size_t, size_t> Size;
 
 #endif //DUST_TYPES_H
