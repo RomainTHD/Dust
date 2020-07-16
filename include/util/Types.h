@@ -20,4 +20,25 @@ typedef std::pair<long, long> Position;
  */
 typedef std::pair<size_t, size_t> Size;
 
+/**
+ * Namespace des fonctions associées aux positions
+ */
+namespace position {
+    /**
+     * Getter ligne
+     *
+     * @param pos Position
+     * @return Ligne
+     */
+    long getRow(const Position &pos);
+
+    /**
+     * Getter colonne
+     *
+     * @param pos Position
+     * @return Colonne
+     */
+    long getCol(const Position &pos);
+}
+
 #endif //DUST_TYPES_H

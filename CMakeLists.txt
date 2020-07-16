@@ -41,6 +41,7 @@ set(SOURCE_FILES
 
         src/util/Observable.cpp
         src/util/Observer.cpp
+        src/util/Types.cpp
 
         src/view/Color.cpp
         src/view/Console.cpp
