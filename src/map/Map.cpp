@@ -3,7 +3,7 @@
 
 #include "map/Map.h"
 
-Map::Map(Size size) :
+Map::Map(const Size& size) :
     size(size.first, size.second)
 {
     particles = std::unique_ptr<MapCol[]>(new MapCol[getNbRows()]);
@@ -37,7 +37,7 @@ size_t Map::getNbRows() const {
     return size.second;
 }
 
-MapElem Map::getParticle(Position pos) const {
+MapElem& Map::getParticle(const Position& pos) const {
     if (isValidPosition(pos)) {
         return particles[pos.first][pos.second];
     }
@@ -46,7 +46,7 @@ MapElem Map::getParticle(Position pos) const {
     }
 }
 
-void Map::setParticle(MapElem particle, Position pos) {
+void Map::setParticle(const MapElem& particle, const Position& pos) {
     if (isValidPosition(pos)) {
         particles[pos.first][pos.second] = std::move(particle);
     }
@@ -55,7 +55,7 @@ void Map::setParticle(MapElem particle, Position pos) {
     }
 }
 
-void Map::swapParticles(Position pos1, Position pos2) {
+void Map::swapParticles(const Position& pos1, const Position& pos2) {
     if (isValidPosition(pos1) && isValidPosition(pos2)) {
         std::swap(particles[pos1.first][pos1.second], particles[pos2.first][pos2.second]);
     }
@@ -64,7 +64,7 @@ void Map::swapParticles(Position pos1, Position pos2) {
     }
 }
 
-void Map::removeParticle(Position pos) {
+void Map::removeParticle(const Position& pos) {
     if (isValidPosition(pos)) {
         particles[pos.first][pos.second] = nullptr;
     }
@@ -73,11 +73,11 @@ void Map::removeParticle(Position pos) {
     }
 }
 
-bool Map::isEmpty(Position pos) const {
+bool Map::isEmpty(const Position& pos) const {
     return particles[pos.first][pos.second] == nullptr;
 }
 
-bool Map::isValidPosition(Position pos) const {
+bool Map::isValidPosition(const Position& pos) const {
     return pos.first > 0 && static_cast<size_t>(pos.first) < getNbRows()
         && pos.second > 0 && static_cast<size_t>(pos.second) < getNbCols();
 }

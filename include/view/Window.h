@@ -28,7 +28,7 @@ public:
      * @param size Taille initiale
      * @param title Titre
      */
-    Window(const Map& map, Position size, const std::string& title);
+    Window(const Map& map, const Position& size, const std::string& title);
 
     /**
      * Destructeur
@@ -101,6 +101,9 @@ private:
      */
     inline static bool running = false;
 
+    /**
+     * Nombre de frames
+     */
     uintmax_t frameCount;
 };
 

@@ -34,7 +34,7 @@ public:
      * @param width Largeur
      * @param height Hauteur
      */
-    explicit Map(Size size);
+    explicit Map(const Size& size);
 
     /**
      * Destructeur
@@ -74,7 +74,7 @@ public:
      * @throws invalid_argument Si la position est invalide
      * @return Particule [row, col]
      */
-    [[nodiscard]] MapElem getParticle(Position pos) const;
+    [[nodiscard]] MapElem& getParticle(const Position& pos) const;
 
     /**
      * Crée une particule
@@ -83,7 +83,7 @@ public:
      * @throws invalid_argument Si la position est invalide
      * @param pos Position
      */
-    void setParticle(MapElem particle, Position pos);
+    void setParticle(const MapElem& particle, const Position& pos);
 
     /**
      * Échange deux particules
@@ -92,7 +92,7 @@ public:
      * @param pos2 Position 2
      * @throws invalid_argument Si la position est invalide
      */
-    void swapParticles(Position pos1, Position pos2);
+    void swapParticles(const Position& pos1, const Position& pos2);
 
     /**
      * Supprime une particule
@@ -100,7 +100,7 @@ public:
      * @param pos Position
      * @throws invalid_argument Si la position est invalide
      */
-    void removeParticle(Position pos);
+    void removeParticle(const Position& pos);
 
     /**
      * Cellule vide ou non
@@ -108,7 +108,7 @@ public:
      * @param pos Position
      * @return Vide ou non
      */
-    [[nodiscard]] bool isEmpty(Position pos) const;
+    [[nodiscard]] bool isEmpty(const Position& pos) const;
 
     /**
      * Position valide ou non
@@ -116,7 +116,7 @@ public:
      * @param pos Position
      * @return Valide ou non
      */
-    [[nodiscard]] bool isValidPosition(Position pos) const;
+    [[nodiscard]] bool isValidPosition(const Position& pos) const;
 private:
     /**
      * Taille de la map

@@ -4,7 +4,7 @@
 #include <view/Color.h>
 #include "view/Window.h"
 
-Window::Window(const Map& m, Position size, const std::string& title) :
+Window::Window(const Map& m, const Position& size, const std::string& title) :
     map(m),
     frameCount(0) {
     renderWindow.create(sf::VideoMode(size.first, size.second), title);
