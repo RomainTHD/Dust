@@ -7,9 +7,29 @@
 #ifndef DUST_CONSOLE_H
 #define DUST_CONSOLE_H
 
+#define UP_LEFT "┌"
+#define UP_RIGHT "┐"
+#define DOWN_LEFT "└"
+#define DOWN_RIGHT "┘"
+
+#define CROSS "┼"
+#define CROSS_DOWN "┬"
+#define CROSS_UP "┴"
+#define CROSS_LEFT "┤"
+#define CROSS_RIGHT "├"
+
+#define HORIZONTAL "─"
+#define VERTICAL "│"
+
+#define SPACE " "
+
+#define EMPTY " "
+#define FULL "█"
+
 #include <cstdio>
 
 #include "map/Map.h"
+#include "util/Types.h"
 
 /**
  * Namespace contenant diverses fonctions de vue

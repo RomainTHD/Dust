@@ -3,79 +3,65 @@
 
 #include "view/Console.h"
 
+using namespace position;
+
 namespace {
-    void displayBorderRow(const Map& map, bool up) {
-        if (up) {
-            std::cout << "┌";
+    void displayBorderRowToConsole(const Map& map, bool up) {
+        std::cout << (up ? UP_LEFT : DOWN_LEFT);
+
+        for (size_t col=0; col < map.getNbCols()-1; col++) {
+            std::cout << HORIZONTAL HORIZONTAL HORIZONTAL << (up ? CROSS_DOWN : CROSS_UP);
+        }
+
+        std::cout << HORIZONTAL HORIZONTAL HORIZONTAL << (up ? UP_RIGHT : DOWN_RIGHT) << std::endl;
+    }
+
+    void displayCellToConsole(const Map& map, Position p) {
+        if (getCol(p) == 0) {
+            std::cout << VERTICAL;
+        }
+
+        std::cout << SPACE;
+
+        if (map.isEmpty(p)) {
+            std::cout << EMPTY;
         }
         else {
-            std::cout << "└";
+            std::cout << FULL;
         }
 
-        for (size_t i=0; i < map.getNbCols()-1; i++) {
-            std::cout << "───";
+        std::cout << SPACE;
 
-            if (up) {
-                std::cout << "┬";
+        if ((unsigned) getCol(p) != map.getNbCols()-1) {
+            std::cout << VERTICAL;
+        }
+    }
+
+    void displayHorizontalRowToConsole(const Map& map, unsigned int row) {
+        std::cout << VERTICAL << std::endl;
+
+        if (row != map.getNbRows()-1) {
+            std::cout << CROSS_RIGHT;
+
+            for (size_t i=0; i < map.getNbCols()-1; i++) {
+                std::cout << HORIZONTAL HORIZONTAL HORIZONTAL CROSS;
             }
-            else {
-                std::cout << "┴";
-            }
-        }
 
-        std::cout << "───";
-
-        if (up) {
-            std::cout << "┐";
+            std::cout << HORIZONTAL HORIZONTAL HORIZONTAL CROSS_LEFT << std::endl;
         }
-        else {
-            std::cout << "┘";
-        }
-
-        std::cout << std::endl;
     }
 }
 
 void view::displayMapToConsole(const Map& map) {
-    displayBorderRow(map, true);
+    displayBorderRowToConsole(map, true);
 
     for (size_t row=0; row < map.getNbRows(); row++) {
         for (size_t col=0; col < map.getNbCols(); col++) {
-            if (col == 0) {
-                std::cout << "│";
-            }
-
-            std::cout << " ";
-
-            if (map.isEmpty(Position(row, col))) {
-                std::cout << " ";
-            }
-            else {
-                std::cout << "█";
-            }
-
-            std::cout << " ";
-
-            if (col != map.getNbCols()-1) {
-                std::cout << "│";
-            }
+            displayCellToConsole(map, Position(row, col));
         }
 
-        std::cout << "│" << std::endl;
-
-        if (row != map.getNbRows()-1) {
-            std::cout << "├";
-
-            for (size_t i=0; i < map.getNbCols()-1; i++) {
-                std::cout << "───┼";
-            }
-
-            std::cout << "───";
-
-            std::cout << "┤" << std::endl;
-
-        }
+        displayHorizontalRowToConsole(map, row);
     }
 
-    displayBorderRow(map, false);
+    displayBorderRowToConsole(map, false);
 }
