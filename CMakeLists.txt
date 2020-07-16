@@ -42,8 +42,9 @@ set(SOURCE_FILES
         src/util/Observable.cpp
         src/util/Observer.cpp
 
-        src/view/Window.cpp
         src/view/Color.cpp
+        src/view/Console.cpp
+        src/view/Window.cpp
 
         src/Main.cpp)
 
@@ -63,6 +64,7 @@ set(HEADER_FILES
         include/util/Types.h
 
         include/view/Color.h
+        include/view/Console.h
         include/view/Window.h
 
         include/Config.h
