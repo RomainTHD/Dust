@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Created by Romain on 05/07/2020.
 
+#include "view/Console.h"
 #include "Main.h"
 
 int main() {
@@ -8,14 +9,18 @@ int main() {
         setenv("DISPLAY", "127.0.0.1:0", true);
     }
 
-    Map map(100, 100);
+    Map map(Size(5, 3));
 
-    Window window(map, std::pair<size_t, size_t>(800, 600), "Dust");
+    map.setParticle(MapElem(new SandParticle()), Position(1, 2));
+
+    // Window window(map, Size(800, 600), "Dust");
 
     bool graceful = true;
 
+    view::displayMapToConsole(map);
+
     try {
-        window.run();
+        // window.run();
     }
     catch (std::exception& e) {
         std::cerr << e.what() << std::endl;

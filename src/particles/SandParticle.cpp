@@ -4,5 +4,9 @@
 #include "particles/SandParticle.h"
 
 SandParticle::SandParticle() :
-    Particle(ParticleType::SAND)
+    Particle(ParticleType::SAND, Color("#ff0000"))
     {}
+
+void SandParticle::update() {
+
+}

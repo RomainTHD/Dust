@@ -4,6 +4,7 @@
 
 .idea
 cmake-build-debug
+cmake_modules/FindSFML.cmake
 
 # ------------------------------
 # C++

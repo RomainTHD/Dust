@@ -1,10 +1,12 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Created by Romain on 06/07/2020.
 
+#include <view/Color.h>
 #include "view/Window.h"
 
-Window::Window(const Map& m, std::pair<size_t, size_t> size, const std::string& title) :
-    map(m) {
+Window::Window(const Map& m, const Position& size, const std::string& title) :
+    map(m),
+    frameCount(0) {
     renderWindow.create(sf::VideoMode(size.first, size.second), title);
     renderWindow.setFramerateLimit(FRAMERATE);
     renderWindow.setVerticalSyncEnabled(ENABLE_VSYNC);
@@ -19,10 +21,18 @@ void Window::run() {
 
     running = true;
 
+    const int frameTarget = std::max(FRAMERATE / UPDATES_PER_SECOND, 1);
+
     while (renderWindow.isOpen()) {
         processEvents();
-        update();
+
+        if (frameCount % frameTarget == 0) {
+            update();
+        }
+
         render();
+
+        frameCount++;
     }
 }
 
@@ -56,11 +66,25 @@ void Window::processEvents() {
 }
 
 void Window::update() {
+    for (unsigned int row=0; row < map.getHeight(); row++) {
+        for (unsigned int col = 0; col < map.getWidth(); col++) {
+            const Position pos(row, col);
 
+            if (!map.isEmpty(pos)) {
+                MapElem particle = map.getParticle(pos);
+
+                particle->update();
+
+                if (particle->hasChanged()) {
+
+                }
+            }
+        }
+    }
 }
 
 void Window::render() {
-    renderWindow.clear(BACKGROUND_COLOR);
+    renderWindow.clear(Color(BACKGROUND_COLOR).toSFMLColor());
 
     const sf::Vector2f windowSize(
             static_cast<float>(renderWindow.getSize().x),
@@ -75,14 +99,14 @@ void Window::render() {
     sf::RectangleShape shape(sf::Vector2f(cellSize, cellSize));
 
     shape.setOutlineThickness(OUTLINE_THICKNESS);
-    shape.setOutlineColor(BACKGROUND_COLOR);
+    shape.setOutlineColor(Color(BACKGROUND_COLOR).toSFMLColor());
 
     const sf::Vector2f offset = windowSize - sf::Vector2f(
             static_cast<float>(map.getHeight()) * cellSize,
             static_cast<float>(map.getWidth()) * cellSize
         );
 
-    // const sf::Vector2i mousePos = sf::Mouse::getPosition(renderWindow);
+    const sf::Vector2i mousePos = sf::Mouse::getPosition(renderWindow) - sf::Vector2i(offset / 2.0f);
 
     for (unsigned int row=0; row < map.getHeight(); row++) {
         for (unsigned int col=0; col < map.getWidth(); col++) {
@@ -93,10 +117,19 @@ void Window::render() {
 
             shape.setPosition(shapePos + offset / 2.0f);
 
-            shape.setFillColor(sf::Color::Red);
+            MapElem particle = map.getParticle(Position(row, col));
+
+            const Color& color = (particle == nullptr) ? Color(BACKGROUND_COLOR) : particle->getColor();
+
+            shape.setFillColor(color.toSFMLColor());
 
             renderWindow.draw(shape);
 
+            if (mousePos.x >= shapePos.x && mousePos.x < shapePos.x + cellSize
+                && mousePos.y >= shapePos.y && mousePos.y < shapePos.y + cellSize) {
+                shape.setFillColor(sf::Color(255,255,0, 63));
+                renderWindow.draw(shape);
+            }
         }
     }
 

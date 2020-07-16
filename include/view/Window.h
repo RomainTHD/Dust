@@ -1,4 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
+/**
+ * Gestion de la fenêtre
+ */
 // Created by Romain on 06/07/2020.
 
 #ifndef DUST_WINDOW_H
@@ -8,13 +11,14 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+#include "util/Types.h"
 #include "map/Map.h"
+#include "particles/Particle.h"
+#include "Config.h"
 
-#define BACKGROUND_COLOR sf::Color::Black
-#define OUTLINE_THICKNESS 1
-#define FRAMERATE 60
-#define ENABLE_VSYNC true
-
+/**
+ * Gestion de la fenêtre
+ */
 class Window {
 public:
     /**
@@ -24,7 +28,7 @@ public:
      * @param size Taille initiale
      * @param title Titre
      */
-    Window(const Map& map, std::pair<size_t, size_t> size, const std::string& title);
+    Window(const Map& map, const Position& size, const std::string& title);
 
     /**
      * Destructeur
@@ -96,6 +100,11 @@ private:
      * Lancé ou non
      */
     inline static bool running = false;
+
+    /**
+     * Nombre de frames
+     */
+    uintmax_t frameCount;
 };
 
 #endif //DUST_WINDOW_H

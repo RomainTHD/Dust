@@ -18,7 +18,6 @@ public:
      * Énum des différentes valeurs
      */
     enum Value : uint8_t {
-        NOT_INITIALIZED,
         SAND
     };
 

@@ -7,8 +7,6 @@
 #ifndef DUST_MAIN_H
 #define DUST_MAIN_H
 
-#define X_SERVER true
-
 #include <iostream>
 
 #include "map/Map.h"
