@@ -9,12 +9,15 @@
 
 #include <iostream>
 
-#include "map/Map.h"
+#include "game/Map.h"
 #include "particles/Particle.h"
 #include "particles/SandParticle.h"
 
 #include "particles/ParticleType.h"
 
 #include "view/Window.h"
+
+#include "game/Game.h"
+#include "view/Console.h"
 
 #endif //DUST_MAIN_H

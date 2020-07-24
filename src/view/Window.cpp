@@ -1,12 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Created by Romain on 06/07/2020.
 
-#include <view/Color.h>
 #include "view/Window.h"
 
-Window::Window(const Map& m, const Position& size, const std::string& title) :
-    map(m),
-    frameCount(0) {
+Window::Window(const Position& size, const std::string& title) {
     renderWindow.create(sf::VideoMode(size.first, size.second), title);
     renderWindow.setFramerateLimit(FRAMERATE);
     renderWindow.setVerticalSyncEnabled(ENABLE_VSYNC);
@@ -14,29 +11,7 @@ Window::Window(const Map& m, const Position& size, const std::string& title) :
     renderWindow.setKeyRepeatEnabled(true);
 }
 
-void Window::run() {
-    if (running) {
-        throw std::runtime_error("Window already opened");
-    }
-
-    running = true;
-
-    const int frameTarget = std::max(FRAMERATE / UPDATES_PER_SECOND, 1);
-
-    while (renderWindow.isOpen()) {
-        processEvents();
-
-        if (frameCount % frameTarget == 0) {
-            update();
-        }
-
-        render();
-
-        frameCount++;
-    }
-}
-
-void Window::processEvents() {
+void Window::processEvents(const Map& map) {
     sf::Event event {};
 
     while (renderWindow.pollEvent(event)) {
@@ -56,7 +31,7 @@ void Window::processEvents() {
                 break;
 
             case sf::Event::Resized:
-                handleResize(event.size);
+                handleResize(map, event.size);
                 break;
 
             default:
@@ -65,25 +40,7 @@ void Window::processEvents() {
     }
 }
 
-void Window::update() {
-    for (unsigned int row=0; row < map.getHeight(); row++) {
-        for (unsigned int col = 0; col < map.getWidth(); col++) {
-            const Position pos(row, col);
-
-            if (!map.isEmpty(pos)) {
-                MapElem particle = map.getParticle(pos);
-
-                particle->update();
-
-                if (particle->hasChanged()) {
-
-                }
-            }
-        }
-    }
-}
-
-void Window::render() {
+void Window::render(const Map& map) {
     renderWindow.clear(Color(BACKGROUND_COLOR).toSFMLColor());
 
     const sf::Vector2f windowSize(
@@ -173,7 +130,7 @@ void Window::handleMouse(const sf::Event::MouseButtonEvent& mouse, bool pressed)
 
 }
 
-void Window::handleResize(sf::Event::SizeEvent& size) {
+void Window::handleResize(const Map& map, sf::Event::SizeEvent& size) {
     const float cellWidth = (float) size.width / (float) map.getWidth();
     const float cellHeight = (float) size.height / (float) map.getHeight();
 
@@ -189,4 +146,8 @@ void Window::handleResize(sf::Event::SizeEvent& size) {
      */
 
     renderWindow.setView(sf::View(sf::FloatRect(0, 0, size.width, size.height)));
+}
+
+bool Window::isRunning() const {
+    return renderWindow.isOpen();
 }

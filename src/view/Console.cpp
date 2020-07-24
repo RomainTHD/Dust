@@ -52,7 +52,7 @@ namespace {
     }
 }
 
-void view::displayMapToConsole(const Map& map) {
+void Console::render(const Map &map) {
     displayBorderRowToConsole(map, true);
 
     for (size_t row=0; row < map.getNbRows(); row++) {
@@ -64,4 +64,8 @@ void view::displayMapToConsole(const Map& map) {
     }
 
     displayBorderRowToConsole(map, false);
+}
+
+bool Console::isRunning() const {
+    return true;
 }

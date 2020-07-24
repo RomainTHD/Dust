@@ -8,7 +8,7 @@
 #define DUST_PARTICLE_H
 
 #include "Particle.fwd.h"
-#include "map/Map.fwd.h"
+#include "game/Map.fwd.h"
 #include "ParticleType.h"
 #include "view/Color.h"
 

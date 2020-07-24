@@ -28,19 +28,33 @@
 
 #include <cstdio>
 
-#include "map/Map.h"
+#include "game/Map.h"
 #include "util/Types.h"
+#include "GenericView.h"
 
 /**
- * Namespace contenant diverses fonctions de vue
+ * Affiche le jeu dans la console
  */
-namespace view {
+class Console : public GenericView {
+public:
     /**
-     * Affiche la map dans la console
+     * Destructeur
+     */
+    ~Console() override = default;
+
+    /**
+     * Affichage
      *
      * @param map Map
      */
-    void displayMapToConsole(const Map& map);
-}
+    void render(const Map& map) override;
+
+    /**
+     * Si la vue tourne encore ou non
+     *
+     * @return Running ou non
+     */
+    [[nodiscard]] bool isRunning() const override;
+};
 
 #endif //DUST_CONSOLE_H

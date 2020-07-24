@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Created by Romain on 05/07/2020.
 
-#include "view/Console.h"
 #include "Main.h"
 
 int main() {
@@ -13,14 +12,13 @@ int main() {
 
     map.setParticle(MapElem(new SandParticle()), Position(1, 2));
 
-    // Window window(map, Size(800, 600), "Dust");
+    // Game game(map, new Window(Size(800, 600), "Dust"));
+    Game game(map, new Console());
 
     bool graceful = true;
 
-    view::displayMapToConsole(map);
-
     try {
-        // window.run();
+        game.run();
     }
     catch (std::exception& e) {
         std::cerr << e.what() << std::endl;

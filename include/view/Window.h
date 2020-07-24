@@ -11,53 +11,31 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+#include "view/Color.h"
 #include "util/Types.h"
-#include "map/Map.h"
+#include "game/Map.h"
 #include "particles/Particle.h"
 #include "Config.h"
+#include "GenericView.h"
 
 /**
  * Gestion de la fenêtre
  */
-class Window {
+class Window : public GenericView {
 public:
     /**
      * Constructeur
      *
-     * @param map Map
      * @param size Taille initiale
      * @param title Titre
      */
-    Window(const Map& map, const Position& size, const std::string& title);
+    Window(const Position& size, const std::string& title);
 
     /**
      * Destructeur
      */
-    ~Window() = default;
-
-    /**
-     * Lance la fenêtre
-     *
-     * @throws runtime_error Si la fenêtre est déjà ouverte
-     */
-    void run();
-
+    ~Window() override = default;
 private:
-    /**
-     * Gère les events
-     */
-    void processEvents();
-
-    /**
-     * Met à jour
-     */
-    void update();
-
-    /**
-     * Affiche
-     */
-    void render();
-
     /**
      * Quitte
      */
@@ -84,7 +62,7 @@ private:
      *
      * @param size Event de resize
      */
-    void handleResize(sf::Event::SizeEvent& size);
+    void handleResize(const Map& map, sf::Event::SizeEvent& size);
 
     /**
      * Fenêtre
@@ -92,19 +70,25 @@ private:
     sf::RenderWindow renderWindow;
 
     /**
-     * Map
+     * Gestion des évènements
+     *
+     * @param map Map
      */
-    const Map& map;
+    void processEvents(const Map &map) override;
 
     /**
-     * Lancé ou non
+     * Affichage
+     *
+     * @param map Map
      */
-    inline static bool running = false;
+    void render(const Map& map) override;
 
     /**
-     * Nombre de frames
+     * Si la vue tourne encore ou non
+     *
+     * @return Running ou non
      */
-    uintmax_t frameCount;
+    [[nodiscard]] bool isRunning() const override;
 };
 
 #endif //DUST_WINDOW_H

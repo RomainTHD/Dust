@@ -33,7 +33,8 @@ include_directories("${PROJECT_BINARY_DIR}")
 include_directories(./include)
 
 set(SOURCE_FILES
-        src/map/Map.cpp
+        src/game/Game.cpp
+        src/game/Map.cpp
 
         src/particles/Particle.cpp
         src/particles/ParticleType.cpp
@@ -50,8 +51,9 @@ set(SOURCE_FILES
         src/Main.cpp)
 
 set(HEADER_FILES
-        include/map/Map.fwd.h
-        include/map/Map.h
+        include/game/Game.h
+        include/game/Map.fwd.h
+        include/game/Map.h
 
         include/particles/Particle.fwd.h
         include/particles/Particle.h
@@ -66,6 +68,7 @@ set(HEADER_FILES
 
         include/view/Color.h
         include/view/Console.h
+        include/view/GenericView.h
         include/view/Window.h
 
         include/Config.h
