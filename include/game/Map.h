@@ -15,7 +15,7 @@
 #include "particles/Particle.h"
 
 /**
- * Élément de la map
+ * Élément de la game
  */
 typedef std::shared_ptr<Particle> MapElem;
 
@@ -24,7 +24,7 @@ typedef std::shared_ptr<Particle> MapElem;
  */
 class Map {
     /**
-     * Colonne de la map
+     * Colonne de la game
      */
     typedef std::unique_ptr<MapElem[]> MapCol;
 
@@ -119,7 +119,7 @@ public:
     [[nodiscard]] bool isValidPosition(const Position& pos) const;
 private:
     /**
-     * Taille de la map
+     * Taille de la game
      */
     Position size;
 
