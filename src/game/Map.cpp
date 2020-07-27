@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Created by Romain on 06/07/2020.
 
-#include "map/Map.h"
+#include "game/Map.h"
 
 Map::Map(const Size& size) :
     size(size.first, size.second)
@@ -26,7 +26,7 @@ size_t Map::getWidth() const {
 }
 
 size_t Map::getNbCols() const {
-    return size.first;
+    return size.second;
 }
 
 size_t Map::getHeight() const {
@@ -34,7 +34,7 @@ size_t Map::getHeight() const {
 }
 
 size_t Map::getNbRows() const {
-    return size.second;
+    return size.first;
 }
 
 MapElem& Map::getParticle(const Position& pos) const {
@@ -42,13 +42,19 @@ MapElem& Map::getParticle(const Position& pos) const {
         return particles[pos.first][pos.second];
     }
     else {
-        throw std::invalid_argument("Position invalide");
+        throw std::invalid_argument(
+                "Position invalide : ["
+                + std::to_string(pos.first)
+                + ", "
+                + std::to_string(pos.second)
+                + "]"
+                );
     }
 }
 
 void Map::setParticle(const MapElem& particle, const Position& pos) {
     if (isValidPosition(pos)) {
-        particles[pos.first][pos.second] = std::move(particle);
+        particles[pos.first][pos.second] = particle;
     }
     else {
         throw std::invalid_argument("Position invalide");
@@ -60,7 +66,17 @@ void Map::swapParticles(const Position& pos1, const Position& pos2) {
         std::swap(particles[pos1.first][pos1.second], particles[pos2.first][pos2.second]);
     }
     else {
-        throw std::invalid_argument("Position invalide");
+        throw std::invalid_argument(
+                "Position invalide : ["
+                + std::to_string(pos1.first)
+                + ", "
+                + std::to_string(pos1.second)
+                + "], ["
+                + std::to_string(pos2.first)
+                + ", "
+                + std::to_string(pos2.second)
+                + "]"
+        );
     }
 }
 
@@ -69,7 +85,13 @@ void Map::removeParticle(const Position& pos) {
         particles[pos.first][pos.second] = nullptr;
     }
     else {
-        throw std::invalid_argument("Position invalide");
+        throw std::invalid_argument(
+                "Position invalide : ["
+                + std::to_string(pos.first)
+                + ", "
+                + std::to_string(pos.second)
+                + "]"
+        );
     }
 }
 
@@ -78,6 +100,6 @@ bool Map::isEmpty(const Position& pos) const {
 }
 
 bool Map::isValidPosition(const Position& pos) const {
-    return pos.first > 0 && static_cast<size_t>(pos.first) < getNbRows()
-        && pos.second > 0 && static_cast<size_t>(pos.second) < getNbCols();
+    return pos.first >= 0 && static_cast<size_t>(pos.first) < getNbRows()
+        && pos.second >= 0 && static_cast<size_t>(pos.second) < getNbCols();
 }

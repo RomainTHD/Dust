@@ -1,54 +1,31 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Created by Romain on 06/07/2020.
 
-#include <view/Color.h>
 #include "view/Window.h"
 
-Window::Window(const Map& m, const Position& size, const std::string& title) :
-    map(m),
-    frameCount(0) {
+Window::Window(const Position& size, const std::string& title) {
     renderWindow.create(sf::VideoMode(size.first, size.second), title);
     renderWindow.setFramerateLimit(FRAMERATE);
-    renderWindow.setVerticalSyncEnabled(ENABLE_VSYNC);
+#   ifdef VSYNC_MODE
+        renderWindow.setVerticalSyncEnabled(VSYNC_MODE);
+#   endif
     renderWindow.setMouseCursorVisible(true);
     renderWindow.setKeyRepeatEnabled(true);
 }
 
-void Window::run() {
-    if (running) {
-        throw std::runtime_error("Window already opened");
-    }
-
-    running = true;
-
-    const int frameTarget = std::max(FRAMERATE / UPDATES_PER_SECOND, 1);
-
-    while (renderWindow.isOpen()) {
-        processEvents();
-
-        if (frameCount % frameTarget == 0) {
-            update();
-        }
-
-        render();
-
-        frameCount++;
-    }
-}
-
-void Window::processEvents() {
+void Window::processEvents(Map& map) {
     sf::Event event {};
 
     while (renderWindow.pollEvent(event)) {
         switch (event.type) {
             case sf::Event::KeyPressed:
             case sf::Event::KeyReleased:
-                handleInput(event.key, event.type == sf::Event::KeyPressed);
+                handleInput(map, event.key, event.type == sf::Event::KeyPressed);
                 break;
 
             case sf::Event::MouseButtonPressed:
             case sf::Event::MouseButtonReleased:
-                handleMouse(event.mouseButton, event.type == sf::Event::MouseButtonPressed);
+                handleMouse(map, event.mouseButton, event.type == sf::Event::MouseButtonPressed);
                 break;
 
             case sf::Event::Closed:
@@ -56,7 +33,7 @@ void Window::processEvents() {
                 break;
 
             case sf::Event::Resized:
-                handleResize(event.size);
+                handleResize(map, event.size);
                 break;
 
             default:
@@ -65,46 +42,23 @@ void Window::processEvents() {
     }
 }
 
-void Window::update() {
-    for (unsigned int row=0; row < map.getHeight(); row++) {
-        for (unsigned int col = 0; col < map.getWidth(); col++) {
-            const Position pos(row, col);
-
-            if (!map.isEmpty(pos)) {
-                MapElem particle = map.getParticle(pos);
-
-                particle->update();
-
-                if (particle->hasChanged()) {
-
-                }
-            }
-        }
-    }
-}
-
-void Window::render() {
+void Window::render(const Map& map) {
     renderWindow.clear(Color(BACKGROUND_COLOR).toSFMLColor());
 
-    const sf::Vector2f windowSize(
-            static_cast<float>(renderWindow.getSize().x),
-            static_cast<float>(renderWindow.getSize().y)
-            );
-
     const float cellSize = std::min(
-            windowSize.x / static_cast<float>(map.getWidth()),
-            windowSize.y / static_cast<float>(map.getHeight())
-            );
+            static_cast<float>(renderWindow.getSize().x) / static_cast<float>(map.getWidth()),
+            static_cast<float>(renderWindow.getSize().y) / static_cast<float>(map.getHeight())
+    );
+
+    const sf::Vector2f offset = sf::Vector2f(renderWindow.getSize()) - sf::Vector2f(
+            static_cast<float>(map.getWidth()) * cellSize,
+            static_cast<float>(map.getHeight()) * cellSize
+    );
 
     sf::RectangleShape shape(sf::Vector2f(cellSize, cellSize));
 
     shape.setOutlineThickness(OUTLINE_THICKNESS);
     shape.setOutlineColor(Color(BACKGROUND_COLOR).toSFMLColor());
-
-    const sf::Vector2f offset = windowSize - sf::Vector2f(
-            static_cast<float>(map.getHeight()) * cellSize,
-            static_cast<float>(map.getWidth()) * cellSize
-        );
 
     const sf::Vector2i mousePos = sf::Mouse::getPosition(renderWindow) - sf::Vector2i(offset / 2.0f);
 
@@ -127,7 +81,7 @@ void Window::render() {
 
             if (mousePos.x >= shapePos.x && mousePos.x < shapePos.x + cellSize
                 && mousePos.y >= shapePos.y && mousePos.y < shapePos.y + cellSize) {
-                shape.setFillColor(sf::Color(255,255,0, 63));
+                shape.setFillColor(Color(255, 255, 0, 63).toSFMLColor());
                 renderWindow.draw(shape);
             }
         }
@@ -152,7 +106,7 @@ void Window::exit() {
     renderWindow.close();
 }
 
-void Window::handleInput(const sf::Event::KeyEvent& key, bool pressed) {
+void Window::handleInput(Map& map, const sf::Event::KeyEvent& key, bool pressed) {
     switch (key.code) {
         case sf::Keyboard::F4:
             if (key.alt) {
@@ -169,11 +123,47 @@ void Window::handleInput(const sf::Event::KeyEvent& key, bool pressed) {
     }
 }
 
-void Window::handleMouse(const sf::Event::MouseButtonEvent& mouse, bool pressed) {
+void Window::handleMouse(Map& map, const sf::Event::MouseButtonEvent& mouse, bool pressed) {
+    const float cellSize = std::min(
+            static_cast<float>(renderWindow.getSize().x) / static_cast<float>(map.getWidth()),
+            static_cast<float>(renderWindow.getSize().y) / static_cast<float>(map.getHeight())
+    );
 
+    const sf::Vector2f offset = sf::Vector2f(renderWindow.getSize()) - sf::Vector2f(
+            static_cast<float>(map.getWidth()) * cellSize,
+            static_cast<float>(map.getHeight()) * cellSize
+    );
+
+    const sf::Vector2i mousePos = sf::Mouse::getPosition(renderWindow) - sf::Vector2i(offset / 2.0f);
+
+    if (mousePos.x >= 0 && mousePos.x < map.getWidth()*cellSize &&
+        mousePos.y >= 0 && mousePos.y < map.getHeight()*cellSize) {
+
+        Position p(
+                mousePos.y / cellSize,
+                mousePos.x / cellSize
+                );
+
+        if (pressed) {
+            if (mouse.button == sf::Mouse::Left) {
+                if (map.isValidPosition(p)) {
+                    map.setParticle(MapElem(new SandParticle()), p);
+                } else {
+                    std::cerr << p.first << ' ' << p.second << '\n';
+                }
+            }
+            else if (mouse.button == sf::Mouse::Right) {
+                if (map.isValidPosition(p)) {
+                    map.removeParticle(p);
+                } else {
+                    std::cerr << p.first << ' ' << p.second << '\n';
+                }
+            }
+        }
+    }
 }
 
-void Window::handleResize(sf::Event::SizeEvent& size) {
+void Window::handleResize(const Map& map, sf::Event::SizeEvent& size) {
     const float cellWidth = (float) size.width / (float) map.getWidth();
     const float cellHeight = (float) size.height / (float) map.getHeight();
 
@@ -189,4 +179,8 @@ void Window::handleResize(sf::Event::SizeEvent& size) {
      */
 
     renderWindow.setView(sf::View(sf::FloatRect(0, 0, size.width, size.height)));
+}
+
+bool Window::isRunning() const {
+    return renderWindow.isOpen();
 }

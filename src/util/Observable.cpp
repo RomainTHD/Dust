@@ -57,8 +57,3 @@ void Observable::setChanged() {
 void Observable::clearChanged() {
     changed = false;
 }
-
-
-
-
-

@@ -1,26 +1,27 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Created by Romain on 05/07/2020.
 
-#include "view/Console.h"
 #include "Main.h"
 
 int main() {
-    if (X_SERVER) {
+#   ifdef X_SERVER
         setenv("DISPLAY", "127.0.0.1:0", true);
-    }
+#   endif
 
-    Map map(Size(5, 3));
+    Map map(Size(HEIGHT, WIDTH));
 
     map.setParticle(MapElem(new SandParticle()), Position(1, 2));
 
-    // Window window(map, Size(800, 600), "Dust");
+#   if DISPLAY
+        Game game(map, new Window(Size(800, 600), "Dust"));
+#   else
+        Game game(map, new Console());
+#   endif
 
     bool graceful = true;
 
-    view::displayMapToConsole(map);
-
     try {
-        // window.run();
+        game.run();
     }
     catch (std::exception& e) {
         std::cerr << e.what() << std::endl;

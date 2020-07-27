@@ -24,7 +24,7 @@ typedef std::shared_ptr<Particle> MapElem;
  */
 class Map {
     /**
-     * Colonne de la map
+     * Colonne de la game
      */
     typedef std::unique_ptr<MapElem[]> MapCol;
 
@@ -44,7 +44,6 @@ public:
     /**
      * Récupère la largeur
      * @return Largeur
-     * @deprecated
      */
     [[nodiscard]] size_t getWidth() const;
 
@@ -57,7 +56,6 @@ public:
     /**
      * Récupère la hauteur
      * @return Hauteur
-     * @deprecated
      */
     [[nodiscard]] size_t getHeight() const;
 
@@ -119,7 +117,7 @@ public:
     [[nodiscard]] bool isValidPosition(const Position& pos) const;
 private:
     /**
-     * Taille de la map
+     * Taille de la game
      */
     Position size;
 
@@ -130,4 +128,3 @@ private:
 };
 
 #endif //DUST_MAP_H
-

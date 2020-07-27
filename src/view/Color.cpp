@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Created by Romain on 08/07/2020.
 
-#include <view/Color.h>
+#include "view/Color.h"
 
 Color::Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a) :
     r(r),
