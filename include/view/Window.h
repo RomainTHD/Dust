@@ -15,6 +15,7 @@
 #include "util/Types.h"
 #include "game/Map.h"
 #include "particles/Particle.h"
+#include "particles/SandParticle.h"
 #include "Config.h"
 #include "GenericView.h"
 
@@ -47,7 +48,7 @@ private:
      * @param key Touche
      * @param pressed Bouton enfoncé ou relâché
      */
-    void handleInput(const sf::Event::KeyEvent& key, bool pressed);
+    void handleInput(Map& map, const sf::Event::KeyEvent& key, bool pressed);
 
     /**
      * Gère les appuis souris
@@ -55,7 +56,7 @@ private:
      * @param mouse Souris
      * @param pressed Bouton enfoncé ou relâché
      */
-    void handleMouse(const sf::Event::MouseButtonEvent& mouse, bool pressed);
+    void handleMouse(Map& map, const sf::Event::MouseButtonEvent& mouse, bool pressed);
 
     /**
      * Gère le redimensionnement de la fenêtre
@@ -74,7 +75,7 @@ private:
      *
      * @param map Map
      */
-    void processEvents(const Map &map) override;
+    void processEvents(Map &map) override;
 
     /**
      * Affichage

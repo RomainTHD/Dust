@@ -31,7 +31,7 @@ public:
      *
      * @param map Map
      */
-    virtual void processEvents(const Map& map) {};
+    virtual void processEvents(Map& map) {};
 
     /**
      * Affichage
