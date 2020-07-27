@@ -7,6 +7,8 @@
 #ifndef DUST_GAME_H
 #define DUST_GAME_H
 
+#include <chrono>
+
 #include "view/GenericView.h"
 #include "Map.h"
 #include "Config.h"

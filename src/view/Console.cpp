@@ -53,6 +53,8 @@ namespace {
 }
 
 void Console::render(const Map &map) {
+    std::cout << std::endl;
+
     displayBorderRowToConsole(map, true);
 
     for (size_t row=0; row < map.getNbRows(); row++) {
@@ -64,6 +66,8 @@ void Console::render(const Map &map) {
     }
 
     displayBorderRowToConsole(map, false);
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000 / UPDATES_PER_SECOND));
 }
 
 bool Console::isRunning() const {

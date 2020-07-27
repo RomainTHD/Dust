@@ -20,13 +20,18 @@ void Game::run() {
 
     running = true;
 
-    const int frameTarget = std::max(FRAMERATE / UPDATES_PER_SECOND, 1);
+    std::chrono::time_point<std::chrono::system_clock> lastUpdate = std::chrono::system_clock::now();
 
     while (view->isRunning()) {
         view->processEvents(map);
 
-        if (frameCount % frameTarget == 0) {
+        std::chrono::time_point<std::chrono::system_clock> now = std::chrono::system_clock::now();
+
+        const float diff = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastUpdate).count();
+
+        if (diff > 1000.0f / UPDATES_PER_SECOND) {
             update();
+            lastUpdate = std::chrono::system_clock::now();
         }
 
         view->render(map);

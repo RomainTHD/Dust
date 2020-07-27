@@ -27,10 +27,13 @@
 #define FULL "█"
 
 #include <cstdio>
+#include <chrono>
+#include <thread>
 
 #include "game/Map.h"
 #include "util/Types.h"
 #include "GenericView.h"
+#include "Config.h"
 
 /**
  * Affiche le jeu dans la console
