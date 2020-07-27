@@ -26,7 +26,7 @@ size_t Map::getWidth() const {
 }
 
 size_t Map::getNbCols() const {
-    return size.first;
+    return size.second;
 }
 
 size_t Map::getHeight() const {
@@ -34,7 +34,7 @@ size_t Map::getHeight() const {
 }
 
 size_t Map::getNbRows() const {
-    return size.second;
+    return size.first;
 }
 
 MapElem& Map::getParticle(const Position& pos) const {
