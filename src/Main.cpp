@@ -4,16 +4,19 @@
 #include "Main.h"
 
 int main() {
-    if (X_SERVER) {
+#   ifdef X_SERVER
         setenv("DISPLAY", "127.0.0.1:0", true);
-    }
+#   endif
 
-    Map map(Size(5, 3));
+    Map map(Size(HEIGHT, WIDTH));
 
     map.setParticle(MapElem(new SandParticle()), Position(1, 2));
 
-    // Game game(map, new Window(Size(800, 600), "Dust"));
-    Game game(map, new Console());
+#   if DISPLAY
+        Game game(map, new Window(Size(800, 600), "Dust"));
+#   else
+        Game game(map, new Console());
+#   endif
 
     bool graceful = true;
 

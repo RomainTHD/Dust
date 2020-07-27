@@ -4,12 +4,18 @@
  */
 // Created by Romain on 09/07/2020.
 
+#define WIDTH 10
+#define HEIGHT 8
+
+#define DISPLAY true
+
 #define BACKGROUND_COLOR "#000000"
 #define OUTLINE_THICKNESS 1
 
-#define FRAMERATE 60
-#define ENABLE_VSYNC true
-
 #define UPDATES_PER_SECOND 1
 
-#define X_SERVER true
+#if DISPLAY
+#   define FRAMERATE 120
+#   define X_SERVER
+#   define VSYNC_MODE true
+#endif
