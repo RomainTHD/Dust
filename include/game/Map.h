@@ -15,7 +15,7 @@
 #include "particles/Particle.h"
 
 /**
- * Élément de la game
+ * Élément de la map
  */
 typedef std::shared_ptr<Particle> MapElem;
 
@@ -44,7 +44,6 @@ public:
     /**
      * Récupère la largeur
      * @return Largeur
-     * @deprecated
      */
     [[nodiscard]] size_t getWidth() const;
 
@@ -57,7 +56,6 @@ public:
     /**
      * Récupère la hauteur
      * @return Hauteur
-     * @deprecated
      */
     [[nodiscard]] size_t getHeight() const;
 
@@ -130,4 +128,3 @@ private:
 };
 
 #endif //DUST_MAP_H
-
