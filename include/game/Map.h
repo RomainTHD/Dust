@@ -115,9 +115,10 @@ public:
      * @return Valide ou non
      */
     [[nodiscard]] bool isValidPosition(const Position& pos) const;
+
 private:
     /**
-     * Taille de la game
+     * Taille de la map
      */
     Position size;
 
