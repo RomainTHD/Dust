@@ -36,6 +36,7 @@ public:
      * Destructeur
      */
     ~Window() override = default;
+
 private:
     /**
      * Quitte
