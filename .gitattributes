@@ -108,3 +108,8 @@
 *.exe   binary
 *.out   binary
 *.app   binary
+
+
+
+cmake_modules/* linguist-vendored
+docs/* linguist-documentation
